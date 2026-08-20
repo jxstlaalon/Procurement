@@ -248,11 +248,11 @@ export default function App() {
         }
 
         @media (max-width: 768px) {
-          .app-header { max-width: 100% !important; }
+          .app-header { max-width: 100% !important; padding: 16px 14px !important; }
           .app-main { max-width: 100% !important; }
           .app-footer { max-width: 100% !important; }
           .app-footer > div { max-width: 100% !important; }
-          .app-nav { max-width: 100% !important; }
+          .app-nav { max-width: 100% !important; padding: 0 14px !important; }
         }
 
         @media (max-width: 640px) {
