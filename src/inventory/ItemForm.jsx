@@ -105,11 +105,15 @@ export default function ItemForm({ item, categories, units, onSave, onCancel }) 
 
   return (
     <form onSubmit={handleSubmit}>
+      <style>{`
+        .item-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        @media (max-width: 640px) { .item-form-grid { grid-template-columns: 1fr; } }
+      `}</style>
       {showCropModal && (
         <ImageCropModal onConfirm={handleCropConfirm} onCancel={() => setShowCropModal(false)} />
       )}
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+      <div className="item-form-grid">
         <div>
           <label style={labelStyle}>Code</label>
           <input value={code} onChange={(e) => setCode(e.target.value)} placeholder="Item code (optional)" style={inputStyle} />

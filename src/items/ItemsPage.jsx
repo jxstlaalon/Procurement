@@ -4,6 +4,7 @@ import { UNASSIGNED_CATEGORY } from '../shared/constants';
 import { Search, Folder, ChevronRight, Package, LayoutGrid } from 'lucide-react';
 import CatalogItem from '../order/CatalogItem';
 import OrderCart from '../order/OrderCart';
+import FloatingCart from '../order/FloatingCart';
 import ItemImageViewer from '../shared/ItemImageViewer';
 
 export default function ItemsPage({ inventory, categories, cart, addToCart, updateCartQty, removeFromCart, clearCart }) {
@@ -66,13 +67,15 @@ export default function ItemsPage({ inventory, categories, cart, addToCart, upda
     <div className="fade-in">
       <style>{`
         .items-grid { display: grid; grid-template-columns: 1fr 320px; gap: 24px; align-items: start; }
+        .floating-cart-toggle { display: none; }
         .items-catalog { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
         .items-folder-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
         .items-folder { display: flex; flex-direction: column; align-items: center; padding: 24px 16px; background: ${C.card}; border: 1px solid ${C.line}; border-radius: 10px; cursor: pointer; transition: all .15s; }
         .items-folder:hover { border-color: ${C.primary}; box-shadow: 0 4px 12px ${C.primary}15; }
         @media (max-width: 1024px) {
           .items-grid { grid-template-columns: 1fr; }
-          .items-cart { order: -1; }
+          .items-cart { display: none !important; }
+          .floating-cart-toggle { display: block !important; }
         }
         @media (max-width: 640px) {
           .items-catalog { grid-template-columns: 1fr; }
@@ -244,6 +247,11 @@ export default function ItemsPage({ inventory, categories, cart, addToCart, upda
         <div className="items-cart" style={{ position: 'sticky', top: 20 }}>
           <OrderCart cart={cart} onUpdateQty={updateCartQty} onRemoveItem={removeFromCart} onClearCart={clearCart} onImageClick={setViewingItem} />
         </div>
+      </div>
+
+      {/* Floating Cart (mobile/tablet) */}
+      <div className="floating-cart-toggle">
+        <FloatingCart cart={cart} onUpdateQty={updateCartQty} onRemoveItem={removeFromCart} onClearCart={clearCart} onImageClick={setViewingItem} />
       </div>
     </div>
   );

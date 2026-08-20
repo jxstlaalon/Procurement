@@ -736,7 +736,8 @@ export default function InventoryPage({ inventory, categories, setCategories, un
             <span style={{ fontSize: 12, color: C.mute }}>({filteredItems.length} items)</span>
           </div>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+          <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13, minWidth: 700 }}>
             <thead>
               <tr style={{ background: C.softBg }}>
                 {[
@@ -816,6 +817,7 @@ export default function InventoryPage({ inventory, categories, setCategories, un
               )}
             </tbody>
           </table>
+          </div>
           {itemsTotalPages > 1 && (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 12, padding: '12px 16px', borderTop: `1px solid ${C.line}` }}>
               <button type="button" onClick={() => setItemsPage(p => Math.max(1, p - 1))} disabled={itemsPage === 1}
@@ -931,7 +933,8 @@ export default function InventoryPage({ inventory, categories, setCategories, un
           </div>
 
           {/* Table */}
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+          <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13, minWidth: 700 }}>
             <thead>
               <tr style={{ background: C.softBg }}>
                 {[
@@ -1007,6 +1010,7 @@ export default function InventoryPage({ inventory, categories, setCategories, un
               )}
             </tbody>
           </table>
+          </div>
           {itemsTotalPages > 1 && (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 12, padding: '12px 16px', borderTop: `1px solid ${C.line}` }}>
               <button type="button" onClick={() => setItemsPage(p => Math.max(1, p - 1))} disabled={itemsPage === 1}

@@ -316,8 +316,10 @@ export default function ExportPage({ orders, inventory, showToast }) {
   return (
     <div className="fade-in">
       <style>{`
-        @media (max-width: 640px) {
+        @media (max-width: 1024px) {
           .exp-grid { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 640px) {
           .exp-card { padding: 16px !important; }
           .exp-date-grid { grid-template-columns: 1fr !important; }
         }

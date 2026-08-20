@@ -7,6 +7,7 @@ import { createOrder, getNextOrderNumber } from '../lib/db';
 import { Send, CheckCircle, AlertCircle, Search, ShoppingCart, ClipboardPlus, Folder, ChevronRight, Package, LayoutGrid } from 'lucide-react';
 import CatalogItem from './CatalogItem';
 import OrderCart from './OrderCart';
+import FloatingCart from './FloatingCart';
 import ItemImageViewer from '../shared/ItemImageViewer';
 
 const TIME_SLOTS = [
@@ -223,6 +224,7 @@ export default function OrderPage({ inventory, categories, units, cart, addToCar
     <div className="fade-in">
       <style>{`
         .ord-grid { display: grid; grid-template-columns: 1fr 340px; gap: 24px; align-items: start; }
+        .floating-cart-toggle { display: none; }
         .ord-catalog { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
         .ord-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
         .ord-folder-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
@@ -230,7 +232,9 @@ export default function OrderPage({ inventory, categories, units, cart, addToCar
         .ord-folder:hover { border-color: ${C.primary}; box-shadow: 0 4px 12px ${C.primary}15; }
         @media (max-width: 1024px) {
           .ord-grid { grid-template-columns: 1fr; }
-          .ord-cart { order: -1; }
+          .ord-cart { display: none !important; }
+          .floating-cart-toggle { display: block !important; }
+        }
         }
         @media (max-width: 640px) {
           .ord-form-grid { grid-template-columns: 1fr; }
@@ -569,6 +573,11 @@ export default function OrderPage({ inventory, categories, units, cart, addToCar
           </div>
         </form>
       )}
+
+      {/* Floating Cart (mobile/tablet) */}
+      <div className="floating-cart-toggle">
+        <FloatingCart cart={cart} onUpdateQty={updateCartQty} onRemoveItem={removeFromCart} onClearCart={clearCart} onImageClick={setViewingItem} />
+      </div>
 
       {/* Success Modal */}
       {showSuccess && (

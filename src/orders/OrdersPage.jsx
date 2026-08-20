@@ -261,7 +261,8 @@ export default function OrdersPage({ orders, showToast, onRefresh }) {
 
       {/* Orders Table */}
       <div style={{ background: C.card, border: `1px solid ${C.line}`, borderRadius: 10, overflow: 'hidden' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+        <div style={{ overflowX: 'auto' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13, minWidth: 700 }}>
           <thead>
             <tr style={{ background: C.softBg }}>
               {[
@@ -344,6 +345,7 @@ export default function OrdersPage({ orders, showToast, onRefresh }) {
             )}
           </tbody>
         </table>
+        </div>
       </div>
 
       {/* Order Detail Modal */}

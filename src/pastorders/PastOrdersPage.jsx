@@ -186,7 +186,8 @@ export default function PastOrdersPage({ orders, onRefresh, showToast }) {
 
       {/* Orders Table */}
       <div style={{ background: C.card, border: `1px solid ${C.line}`, borderRadius: 10, overflow: 'hidden' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+        <div style={{ overflowX: 'auto' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13, minWidth: 700 }}>
           <thead>
             <tr style={{ background: C.softBg }}>
               {[
@@ -298,6 +299,7 @@ export default function PastOrdersPage({ orders, onRefresh, showToast }) {
             )}
           </tbody>
         </table>
+        </div>
       </div>
 
       {/* Summary */}
