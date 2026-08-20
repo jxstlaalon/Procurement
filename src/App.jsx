@@ -247,6 +247,14 @@ export default function App() {
           .app-footer-logo { width: 260px !important; }
         }
 
+        @media (max-width: 768px) {
+          .app-header { max-width: 100% !important; }
+          .app-main { max-width: 100% !important; }
+          .app-footer { max-width: 100% !important; }
+          .app-footer > div { max-width: 100% !important; }
+          .app-nav { max-width: 100% !important; }
+        }
+
         @media (max-width: 640px) {
           .app-header { padding: 12px 14px !important; gap: 12px !important; flex-direction: column !important; align-items: center !important; text-align: center !important; }
           .app-header-left { flex-direction: column !important; align-items: center !important; gap: 8px !important; }

@@ -235,10 +235,11 @@ export default function OrderPage({ inventory, categories, units, cart, addToCar
           .ord-cart { display: none !important; }
           .floating-cart-toggle { display: block !important; }
         }
+        @media (max-width: 768px) {
+          .ord-catalog { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important; gap: 10px !important; }
         }
         @media (max-width: 640px) {
           .ord-form-grid { grid-template-columns: 1fr; }
-          .ord-catalog { grid-template-columns: 1fr; }
           .ord-folder-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
         }
       `}</style>

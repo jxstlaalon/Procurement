@@ -77,8 +77,10 @@ export default function ItemsPage({ inventory, categories, cart, addToCart, upda
           .items-cart { display: none !important; }
           .floating-cart-toggle { display: block !important; }
         }
+        @media (max-width: 768px) {
+          .items-catalog { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important; gap: 10px !important; }
+        }
         @media (max-width: 640px) {
-          .items-catalog { grid-template-columns: 1fr; }
           .items-folder-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
         }
       `}</style>

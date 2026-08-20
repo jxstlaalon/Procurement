@@ -317,6 +317,9 @@ export default function InventoryPage({ inventory, categories, setCategories, un
         .inv-picture-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
         .inv-picture-card { background: ${C.card}; border: 1px solid ${C.line}; border-radius: 10px; overflow: hidden; cursor: pointer; transition: all .15s; }
         .inv-picture-card:hover { border-color: ${C.primary}; box-shadow: 0 4px 12px ${C.primary}15; }
+        @media (max-width: 768px) {
+          .inv-picture-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important; gap: 10px !important; }
+        }
         @media (max-width: 640px) {
           .inv-header { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; }
           .inv-folder-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
