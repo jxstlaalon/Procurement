@@ -174,7 +174,7 @@ export default function OrderPage({ inventory, categories, units, cart, addToCar
     try {
       const orderNum = await getNextOrderNumber();
       await createOrder({
-        order_number: orderNum,
+        id: orderNum,
         email: form.email,
         first_name: form.firstName,
         last_name: form.lastName,
