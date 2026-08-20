@@ -1,13 +1,35 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { C, FONT_DISPLAY, FONT_BODY } from '../shared/theme';
-import { todayISO, formatMoney } from '../shared/helpers';
+import { todayISO, formatMoney, to12h } from '../shared/helpers';
 import { COST_CENTRES } from '../costCentres';
 import { UNASSIGNED_CATEGORY } from '../shared/constants';
-import { createOrder } from '../lib/db';
+import { createOrder, getNextOrderNumber } from '../lib/db';
 import { Send, CheckCircle, AlertCircle, Search, ShoppingCart, ClipboardPlus, Folder, ChevronRight, Package, LayoutGrid } from 'lucide-react';
 import CatalogItem from './CatalogItem';
 import OrderCart from './OrderCart';
 import ItemImageViewer from '../shared/ItemImageViewer';
+
+const TIME_SLOTS = [
+  '08:30','09:00','09:30','10:00','10:30','11:00','11:30',
+  '12:00','12:30','13:00','13:30','14:00','14:30','15:00',
+  '15:30','16:00','16:30',
+];
+
+function getAvailableSlots(pickupDate) {
+  if (!pickupDate) return TIME_SLOTS;
+  const today = todayISO();
+  if (pickupDate < today) return [];
+  if (pickupDate !== today) return TIME_SLOTS;
+
+  const now = new Date();
+  const cutoff = new Date(now.getTime() + 30 * 60 * 1000);
+  const cutoffMinutes = cutoff.getHours() * 60 + cutoff.getMinutes();
+
+  return TIME_SLOTS.filter(slot => {
+    const [h, m] = slot.split(':').map(Number);
+    return (h * 60 + m) >= cutoffMinutes;
+  });
+}
 
 export default function OrderPage({ inventory, categories, units, cart, addToCart, updateCartQty, removeFromCart, clearCart, setCart }) {
   const [showForm, setShowForm] = useState(false);
@@ -134,8 +156,10 @@ export default function OrderPage({ inventory, categories, units, cart, addToCar
 
   const orderTotal = cart.reduce((sum, item) => sum + (item.unitPrice * item.quantity), 0);
 
+  const isPastDate = form.pickupDate && form.pickupDate < todayISO();
+
   const canSubmit = form.email && form.firstName && form.lastName && form.telephone &&
-    selectedCode && cart.length > 0 && form.pickupDate && form.pickupTime;
+    selectedCode && cart.length > 0 && form.pickupDate && form.pickupTime && !isPastDate;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -148,7 +172,9 @@ export default function OrderPage({ inventory, categories, units, cart, addToCar
     setStatus(null);
 
     try {
+      const orderNum = await getNextOrderNumber();
       await createOrder({
+        order_number: orderNum,
         email: form.email,
         first_name: form.firstName,
         last_name: form.lastName,
@@ -483,11 +509,29 @@ export default function OrderPage({ inventory, categories, units, cart, addToCar
                 </div>
                 <div style={{ marginBottom: 12 }}>
                   <label style={labelStyle}>Pickup Date *</label>
-                  <input type="date" value={form.pickupDate} onChange={(e) => setForm(f => ({ ...f, pickupDate: e.target.value }))} style={inputStyle} required />
+                  <input type="date" value={form.pickupDate} onChange={(e) => setForm(f => ({ ...f, pickupDate: e.target.value, pickupTime: '' }))} style={inputStyle} required />
                 </div>
                 <div>
                   <label style={labelStyle}>Pickup Time *</label>
-                  <input type="time" value={form.pickupTime} onChange={(e) => setForm(f => ({ ...f, pickupTime: e.target.value }))} style={inputStyle} required />
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 6, maxHeight: 200, overflowY: 'auto', padding: 2 }}>
+                    {getAvailableSlots(form.pickupDate).map(slot => (
+                      <button key={slot} type="button" onClick={() => setForm(f => ({ ...f, pickupTime: slot }))}
+                        style={{
+                          padding: '8px 4px', fontSize: 12, fontFamily: FONT_BODY, fontWeight: 500, cursor: 'pointer',
+                          background: form.pickupTime === slot ? C.primary : C.softBg,
+                          color: form.pickupTime === slot ? '#FAF8F3' : C.ink,
+                          border: `1px solid ${form.pickupTime === slot ? C.primary : C.lineStrong}`,
+                          borderRadius: 6, textAlign: 'center',
+                        }}>
+                        {to12h(slot)}
+                      </button>
+                    ))}
+                    {getAvailableSlots(form.pickupDate).length === 0 && (
+                      <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: 12, fontSize: 12, color: C.mute }}>
+                        {isPastDate ? 'Cannot select a past date' : 'No times available — pick a later date'}
+                      </div>
+                    )}
+                  </div>
                 </div>
                 <div style={{ fontSize: 11, color: C.mute, marginTop: 8, fontStyle: 'italic' }}>
                   Please allow at least 30 minutes for order preparation.

@@ -99,7 +99,7 @@ export default function CatalogItem({ item, units, onAddToCart, onImageClick }) 
             style={{ padding: '6px 10px', background: C.softBg, border: 'none', cursor: 'pointer', color: C.mute }}>
             <Minus size={14} />
           </button>
-          <input type="number" min="1" max={item.stock_count} value={qty}
+          <input type="number" min="1" max={item.stock_count > 0 ? item.stock_count : 1} value={qty}
             onChange={(e) => setQty(Math.min(item.stock_count, Math.max(1, parseInt(e.target.value) || 1)))}
             ref={wheelRef}
             style={{ width: 40, textAlign: 'center', border: 'none', fontSize: 13, fontFamily: FONT_MONO, background: C.card }} />

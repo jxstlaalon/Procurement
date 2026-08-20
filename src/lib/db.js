@@ -105,6 +105,12 @@ export const getNextInvoiceNumber = async () => {
   return data;
 };
 
+export const getNextOrderNumber = async () => {
+  const { data, error } = await supabase.rpc('increment_order_counter');
+  if (error) throw error;
+  return data;
+};
+
 // ==================== UNITS ====================
 
 export const getUnits = async () => {
