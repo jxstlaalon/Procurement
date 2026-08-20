@@ -115,9 +115,24 @@ export default function App() {
       .on('postgres_changes', { event: '*', schema: 'public', table: 'units' }, () => {
         loadUnits();
       })
-      .subscribe();
+      .subscribe((status) => {
+        if (status === 'CHANNEL_ERROR') {
+          console.warn('Realtime channel error, reconnecting...');
+          setTimeout(() => channel.subscribe(), 3000);
+        }
+      });
 
-    return () => { supabase.removeChannel(channel); };
+    const heartbeat = setInterval(() => {
+      if (channel.state === 'closed') {
+        console.warn('Realtime channel closed, resubscribing...');
+        channel.subscribe();
+      }
+    }, 30000);
+
+    return () => {
+      clearInterval(heartbeat);
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   useEffect(() => {
