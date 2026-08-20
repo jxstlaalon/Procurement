@@ -247,14 +247,6 @@ export default function App() {
           .app-footer-logo { width: 260px !important; }
         }
 
-        @media (max-width: 768px) {
-          .app-header { max-width: 100% !important; padding: 16px 14px !important; }
-          .app-main { max-width: 100% !important; }
-          .app-footer { max-width: 100% !important; }
-          .app-footer > div { max-width: 100% !important; }
-          .app-nav { max-width: 100% !important; padding: 0 14px !important; }
-        }
-
         @media (max-width: 640px) {
           .app-header { padding: 12px 14px !important; gap: 12px !important; flex-direction: column !important; align-items: center !important; text-align: center !important; }
           .app-header-left { flex-direction: column !important; align-items: center !important; gap: 8px !important; }
@@ -266,6 +258,7 @@ export default function App() {
           .app-nav::-webkit-scrollbar { display: none !important; }
           .app-nav-btn { padding: 12px 12px !important; font-size: 12px !important; white-space: nowrap !important; flex-shrink: 0 !important; }
           .app-footer { padding: 20px 14px !important; gap: 8px !important; }
+          .app-footer-inner { padding: 20px 14px !important; }
           .app-footer-logo { width: 200px !important; }
           .app-footer-brand { font-size: 14px !important; }
         }
@@ -371,7 +364,7 @@ export default function App() {
 
       {/* ================ FOOTER ================ */}
       <footer className="app-footer" style={{ borderTop: `1px solid ${C.line}`, backgroundColor: C.card, marginTop: 40 }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 28px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+        <div className="app-footer-inner" style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 28px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
           <img className="app-footer-logo" src="usclogo.png" alt="USC" style={{ width: 340, maxWidth: '100%', height: 'auto' }} />
           <div style={{ textAlign: 'center', marginTop: 4 }}>
             <div className="app-footer-brand" style={{ fontFamily: FONT_DISPLAY, fontSize: 16, fontWeight: 500, color: C.ink, letterSpacing: '0.01em' }}>

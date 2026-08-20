@@ -100,16 +100,16 @@ export default function ItemsPage({ inventory, categories, cart, addToCart, upda
       <div className="items-grid">
         {/* Left: Catalog */}
         <div style={{ background: C.card, border: `1px solid ${C.line}`, borderRadius: 10, padding: 20 }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: 8, marginBottom: 16 }}>
             <div style={{ fontSize: 12, fontWeight: 600, color: C.ink, fontFamily: FONT_DISPLAY, letterSpacing: '0.01em' }}>
               All Items
             </div>
-            <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-              <div style={{ position: 'relative' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
+              <div style={{ position: 'relative', flex: '1 1 140px', maxWidth: 180 }}>
                 <Search size={14} style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', color: C.mute }} />
                 <input value={search} onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search..."
-                  style={{ width: 180, padding: '8px 12px 8px 30px', border: `1px solid ${C.lineStrong}`, borderRadius: 6, fontSize: 12, fontFamily: FONT_BODY, color: C.ink, background: C.card }} />
+                  style={{ width: '100%', padding: '8px 12px 8px 30px', border: `1px solid ${C.lineStrong}`, borderRadius: 6, fontSize: 12, fontFamily: FONT_BODY, color: C.ink, background: C.card }} />
               </div>
               {!selectedCategory && (
                 <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}
