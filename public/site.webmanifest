@@ -1,18 +1,18 @@
 {
-  "name": "Procurement Manager",
-  "short_name": "Procurement Manager",
+  "name": "USC Procurement",
+  "short_name": "USC Procurement",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any"
     },
     {
       "src": "/web-app-manifest-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any"
     }
   ],
   "theme_color": "#ffffff",
