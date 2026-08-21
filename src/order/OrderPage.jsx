@@ -232,7 +232,8 @@ export default function OrderPage({ inventory, categories, units, cart, addToCar
         .ord-folder:hover { border-color: ${C.primary}; box-shadow: 0 4px 12px ${C.primary}15; }
         @media (max-width: 1024px) {
           .ord-grid { grid-template-columns: 1fr; }
-          .ord-cart { display: none !important; }
+          .ord-sidebar-cart { display: none !important; }
+          .ord-cart { position: static !important; }
           .floating-cart-toggle { display: block !important; }
         }
         @media (max-width: 768px) {
@@ -505,7 +506,9 @@ export default function OrderPage({ inventory, categories, units, cart, addToCar
 
             {/* Right: Cart + Pickup + Submit */}
             <div className="ord-cart" style={{ position: 'sticky', top: 20 }}>
-              <OrderCart cart={cart} onUpdateQty={updateCartQty} onRemoveItem={removeFromCart} onClearCart={clearCart} onImageClick={setViewingItem} />
+              <div className="ord-sidebar-cart">
+                <OrderCart cart={cart} onUpdateQty={updateCartQty} onRemoveItem={removeFromCart} onClearCart={clearCart} onImageClick={setViewingItem} />
+              </div>
 
               {/* Pickup */}
               <div style={{ background: C.card, border: `1px solid ${C.line}`, borderRadius: 10, padding: 16, marginTop: 16 }}>
