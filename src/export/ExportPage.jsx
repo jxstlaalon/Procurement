@@ -179,7 +179,7 @@ export default function ExportPage({ orders, inventory, showToast }) {
         ['Date', 'Transaction Reference', 'Acct Code', 'Account Name', 'Fund', 'Fnct', 'Transaction Description', 'Quantity', 'Amount', 'Currency'],
       ];
 
-      [...filteredOrders].sort((a, b) => (a.account_name || '').localeCompare(b.account_name || '')).forEach(order => {
+      [...filteredOrders].sort((a, b) => (a.account_name || '').localeCompare(b.account_name || '') || (a.pickup_date || '').localeCompare(b.pickup_date || '')).forEach(order => {
         (order.items || []).forEach(item => {
           rows.push([
             order.pickup_date || '',
